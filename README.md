@@ -1,3 +1,5 @@
+<img src="https://latex.codecogs.com/svg.image?Len" title="Len" />
+
 > Updated on 2021-09-09
 
 ### 这是最新一版本的随机排座位程序
