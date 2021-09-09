@@ -2,6 +2,10 @@
 
 ### Random Seating v2.0
 
+#### 下载方式
+
+点击右上角绿色方框 Code，再在下拉列表内选择 Download ZIP 即可下载。
+
 #### 新加功能
 
 - 优化文件输入输出，从输出到 `.txt` 文件改为 `.csv` 文件，方便打印与编辑，优化维护数据与交互。
@@ -25,9 +29,9 @@
 当程序运行结束后，打开 `seating.csv` 文件，就得到生成的座位表；支持修改与打印。
 
 ##### 高级
-- `LenDepConfigure.txt` 是配置教室长宽数与空格子位置的文件。打开后第一行的数字 $Len$ 是行数，第二行的数字 $Dep$ 是列数，第三行的数字 $n$ 代表有 $n$ 个空格子，后面 $n$ 行每一行两个数 $a,b$ 代表第 $a$ 行第 $b$ 列是空格子。这些空格子不会有人坐。注意：$1\leq a\leq Len, 1\leq b\leq Dep$​。
-- `StudentNameList.txt` 是配置学生姓名列表的文件。打开后第一行的数字 $num$​​​ 是学生人数，后面 $n$​​​ 行每一行有个字符串，对应每位学生的姓名。注意：学生数量 $num$​​ 应该等于有效格子数，即 $Len*Dep-n$​​；如果不相等，可能出现未知错误，敬请注意。
-- `StudentNotTogetherList.txt` 是配置被禁止坐邻座的学生姓名列表文件。打开后第一行的数字 $numNotTgt$ 是被禁止坐邻座的学生人数，后面 $numNotTgt$​ 行每一行有个字符串，对应这些学生的姓名。当前版本设置所有被禁止坐邻座的学生两两不能邻座（前后左右和斜方共八个方向的相邻）。
+- `LenDepConfigure.txt` 是配置教室长宽数与空格子位置的文件。打开后第一行的数字 <img src="https://latex.codecogs.com/svg.image?\inline&space;Len" title="\inline Len" /> 是行数，第二行的数字 <img src="https://latex.codecogs.com/svg.image?\inline&space;Dep" title="\inline Dep" /> 是列数，第三行的数字 <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" /> 代表有 <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" /> 个空格子，后面 <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" /> 行每一行两个数 <img src="https://latex.codecogs.com/svg.image?\inline&space;a,b" title="\inline a,b" /> 代表第 <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" /> 行第 <img src="https://latex.codecogs.com/svg.image?\inline&space;b" title="\inline b" /> 列是空格子。这些空格子不会有人坐。注意：<img src="https://latex.codecogs.com/svg.image?\inline&space;1\leq&space;a\leq&space;Len,&space;1\leq&space;b\leq&space;Dep" title="\inline 1\leq a\leq Len, 1\leq b\leq Dep" />。
+- `StudentNameList.txt` 是配置学生姓名列表的文件。打开后第一行的数字 <img src="https://latex.codecogs.com/svg.image?\inline&space;num" title="\inline num" /> 是学生人数，后面 <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" /> 行每一行有个字符串，对应每位学生的姓名。注意：学生数量 <img src="https://latex.codecogs.com/svg.image?\inline&space;num" title="\inline num" /> 应该等于有效格子数，即 <img src="https://latex.codecogs.com/svg.image?\inline&space;Len*Dep-n" title="\inline Len*Dep-n" />；如果不相等，可能出现未知错误，敬请注意。
+- `StudentNotTogetherList.txt` 是配置被禁止坐邻座的学生姓名列表文件。打开后第一行的数字 <img src="https://latex.codecogs.com/svg.image?\inline&space;numNotTgt" title="\inline numNotTgt" /> 是被禁止坐邻座的学生人数，后面 <img src="https://latex.codecogs.com/svg.image?\inline&space;numNotTgt" title="\inline numNotTgt" /> 行每一行有个字符串，对应这些学生的姓名。当前版本设置所有被禁止坐邻座的学生两两不能邻座（前后左右和斜方共八个方向的相邻）。
 
 
 
@@ -39,7 +43,7 @@
 
 - 优化文件输入输出，从输出到 `.txt` 文件改为 `.csv` 文件，方便打印与编辑，优化维护数据与交互
 - 保留文件输入输出的同时支持终端输出座位表，方便即时查看
-- 防止部分爱讲话的同学坐一起（tbd）
+- 加入禁止部分学生坐邻座的功能
 - 加入更加友好的终端用户界面
 - 移除前后组功能。此功能预计未来将做为可选功能加入程序中
 
