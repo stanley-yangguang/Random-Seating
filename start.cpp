@@ -35,7 +35,7 @@ int main() {
         cin>>dep;
         outConfigure<<len<<endl<<dep<<endl;
         for(int i=1;i<=len;i++)
-            for(int j=1;j<=dep;j++) 
+            for(int j=1;j<=dep;j++)
                 mp[i][j]=1;
         cout<<"How many blocks to cancel: ";
         cin>>num;
@@ -113,7 +113,7 @@ int main() {
         ifstream inNotTgt("StudentNotTogetherList.txt");
         inConfigure>>len>>dep>>numCancel;
         for(int i=1;i<=len;i++)
-            for(int j=1;j<=dep;j++) 
+            for(int j=1;j<=dep;j++)
                 mp[i][j]=1;
         for(int i=1;i<=numCancel;i++) {
             inConfigure>>len2>>dep2;
@@ -170,7 +170,7 @@ int main() {
         }
         outSeating.close();
 
-        for(int i=0;i<numNotTgt;i++) 
+        for(int i=0;i<numNotTgt;i++)
             for(int j=i+1;j<numNotTgt;j++)
                 if(isAdj(namesNotTgt[i],namesNotTgt[j])) {
                     goto START;
@@ -196,5 +196,11 @@ int main() {
     }
     else OptErr();
     cout<<"This is the end of the program. If you want to use other functions, please restart the program. Thank you for using.\n";
+    #ifdef _WIN32
+        system("pause");
+    #endif // __WIN32
+    #ifdef __WINDOWS_
+        system("pause");
+    #endif // __WINDOWS_
     return 0;
 }
