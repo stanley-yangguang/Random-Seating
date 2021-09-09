@@ -1,12 +1,12 @@
 > Updated on 2021-09-09
 
-### 这是最新一版本的随机排座位程序
+### Random Seating v2.0
 
 #### 新加功能
 
 - 优化文件输入输出，从输出到 `.txt` 文件改为 `.csv` 文件，方便打印与编辑，优化维护数据与交互。
 - 保留文件输入输出的同时支持终端输出座位表，方便即时查看。
-- 防止部分爱讲话的同学坐一起（tbd）
+- 加入禁止部分学生坐邻座的功能
 - 加入更加友好的终端用户界面。
 
 #### 使用方法
@@ -17,15 +17,17 @@
 
 ##### 操作
 
-- 对于 macOS / Linux 用户：直接点开 `start` 文件，后按屏幕指示执行。
-- 对于 Windows 用户：直接点开 `start.exe` 文件，后按屏幕指示执行。
+- 对于 macOS / Linux 用户：运行 `start` 文件，后按屏幕指示执行。
+- > 注意：建议 macOS / Linux 使用终端运行 `start` 文件而非直接点击，否则可能出现未知错误。在 Launchpad 内搜 Terminal 打开终端，输入 `cd 文件路径` ，按 enter，然后输入 `./start` 即可正确运行。其中『文件路径』是 `start` 文件所在路径，可以通过在 Finder 内复制文件路径得到。
+
+- 对于 Windows 用户：运行 `start.exe` 文件，后按屏幕指示执行。
 
 当程序运行结束后，打开 `seating.csv` 文件，就得到生成的座位表；支持修改与打印。
 
 ##### 高级
-- `LenDepConfigure.txt` 是配置教室长宽数与空格子位置的文件。打开后第一行的数字 <img src="https://latex.codecogs.com/svg.image?Len" title="Len" /> 是行数，第二行的数字 <img src="https://latex.codecogs.com/svg.image?Dep" title="Dep" /> 是列数，第三行的数字 <img src="https://latex.codecogs.com/svg.image?n" title="n" /> 代表有 <img src="https://latex.codecogs.com/svg.image?n" title="n" /> 个空格子，后面 <img src="https://latex.codecogs.com/svg.image?n" title="n" /> 行每一行两个数 <img src="https://latex.codecogs.com/svg.image?a,b" title="a,b" /> 代表第 <img src="https://latex.codecogs.com/svg.image?a" title="a" /> 行第 <img src="https://latex.codecogs.com/svg.image?b" title="b" /> 列是空格子。这些空格子不会有人坐。注意：<img src="https://latex.codecogs.com/svg.image?1\leq&space;a\leq&space;Len,&space;1\leq&space;b\leq&space;Dep" title="1\leq a\leq Len, 1\leq b\leq Dep" />。
-- `StudentNameList.txt` 是配置学生姓名列表的文件。打开后第一行的数字 <img src="https://latex.codecogs.com/svg.image?num" title="num" /> 是学生人数，后面 <img src="https://latex.codecogs.com/svg.image?n" title="n" /> 行每一行有个字符串，对应每位学生的姓名。注意：学生数量 <img src="https://latex.codecogs.com/svg.image?num" title="num" /> 应该等于有效格子数，即 <img src="https://latex.codecogs.com/svg.image?Len*Dep-n" title="Len*Dep-n" />；如果不相等，可能出现未知错误，敬请注意。
-- `StudentNotTogetherList.txt` 是配置被禁止坐邻座的学生姓名列表文件。打开后第一行的数字 <img src="https://latex.codecogs.com/svg.image?numNotTgt" title="numNotTgt" /> 是被禁止坐邻座的学生人数，后面 <img src="https://latex.codecogs.com/svg.image?numNotTgt" title="numNotTgt" /> 行每一行有个字符串，对应这些学生的姓名。当前版本设置所有被禁止坐邻座的学生两两不能邻座（前后左右坐一起）。
+- `LenDepConfigure.txt` 是配置教室长宽数与空格子位置的文件。打开后第一行的数字 $Len$ 是行数，第二行的数字 $Dep$ 是列数，第三行的数字 $n$ 代表有 $n$ 个空格子，后面 $n$ 行每一行两个数 $a,b$ 代表第 $a$ 行第 $b$ 列是空格子。这些空格子不会有人坐。注意：$1\leq a\leq Len, 1\leq b\leq Dep$​。
+- `StudentNameList.txt` 是配置学生姓名列表的文件。打开后第一行的数字 $num$​​​ 是学生人数，后面 $n$​​​ 行每一行有个字符串，对应每位学生的姓名。注意：学生数量 $num$​​ 应该等于有效格子数，即 $Len*Dep-n$​​；如果不相等，可能出现未知错误，敬请注意。
+- `StudentNotTogetherList.txt` 是配置被禁止坐邻座的学生姓名列表文件。打开后第一行的数字 $numNotTgt$ 是被禁止坐邻座的学生人数，后面 $numNotTgt$​ 行每一行有个字符串，对应这些学生的姓名。当前版本设置所有被禁止坐邻座的学生两两不能邻座（前后左右和斜方共八个方向的相邻）。
 
 
 

@@ -14,31 +14,36 @@ vector<string> names;
 vector<string> namesNotTgt;
 vector<string> seats;
 map<string,int> book;
+map<string,pair<int,int> > pos;
 void OptErr() {
     cout<<"Error! Wrong option!\n";
+}
+bool isAdj(string a, string b) {
+    pair<int,int> pr1=pos[a],pr2=pos[b];
+    if(abs(pr1.first-pr2.first)<=1 && abs(pr1.second-pr2.second)<=1) return 1;
+    return 0;
 }
 int main() {
     cout<<"Hi user, welcome to the Random Seating Program\n    designed by Stanley\n";
     cout<<"Options: \n1: Init\n2: Start Assigning Seat\n3: Clear all settings\n";
     cin>>opt;
     if(opt==1) {
-        ofstream outputStream;
-        outputStream.open("LenDepConfigure.txt");
+        ofstream outConfigure("LenDepConfigure.txt");
         cout<<"Input length: ";
         cin>>len;
         cout<<"Input depth: ";
         cin>>dep;
-        outputStream<<len<<endl<<dep<<endl;
+        outConfigure<<len<<endl<<dep<<endl;
         for(int i=1;i<=len;i++)
             for(int j=1;j<=dep;j++) 
                 mp[i][j]=1;
         cout<<"How many blocks to cancel: ";
         cin>>num;
-        outputStream<<num<<endl;
+        outConfigure<<num<<endl;
         for(int i=1;i<=num;i++) {
             cout<<"For the "<<i<<"th block, input length and depth: ";
             cin>>len2>>dep2;
-            outputStream<<len2<<" "<<dep2<<endl;
+            outConfigure<<len2<<" "<<dep2<<endl;
             mp[len2][dep2]=0;
         }
         cout<<"Display current map: \n";
@@ -48,34 +53,35 @@ int main() {
             }
             cout<<endl;
         }
-        outputStream.close();
+        outConfigure.close();
         cout<<"Map updated successfully.\n";
         cout<<"Next: input students' names. You can either input names manually or provide an external file containing all students' names.\n";
         cout<<"1. Input students' names\n2. Import students' names\n";
         cin>>opt;
-        outputStream.open("StudentNameList.txt");
         if(opt==1) {
+            ofstream outStuName("StudentNameList.txt");
             stunum=len*dep-num;
             cout<<"Total: "<<stunum<<" students\n";
-            outputStream<<stunum<<endl;
+            outStuName<<stunum<<endl;
             for(int i=1;i<=stunum;i++) {
                 cout<<i<<": ";
                 cin>>newname;
                 names.push_back(newname);
-                outputStream<<newname<<endl;
+                outStuName<<newname<<endl;
             }
-            outputStream.close();
+            outStuName.close();
             cout<<"End. The list of students is in \"StudentNameList.txt\".\n";
         }
         else if(opt==2) {
             cout<<"Please make sure that a file named \"StudentNameList.txt\" is in the correct path.\nInput format: a number \"num\" in the first line representing the number of students, followed by num lines, each line is the name of that student. Any order of names is ok.\n";
-            ifstream inputStream;
-            inputStream.open("StudentNameList.txt");
-            inputStream>>stunum;
+            ifstream inStuName("StudentNameList.txt");
+            inStuName>>stunum;
             if(stunum!=len*dep-num) {
                 cout<<"Error found in the number of students in \"StudentNameList.txt\"\n";
                 return 1;
             }
+            inStuName.close();
+            /*
             outputStream<<stunum<<endl;
             for(int i=1;i<=stunum;i++) {
                 inputStream>>newname;
@@ -83,21 +89,22 @@ int main() {
                 outputStream<<newname<<endl;
             }
             outputStream.close();
+            */
             cout<<"End. The list of students is in \"StudentNameList.txt\".\n";
         }
         else OptErr();
         cout<<"Next: input those students that should not sit together: \n";
-        outputStream.open("StudentNotTogetherList.txt");
+        ofstream outNotTgt("StudentNotTogetherList.txt");
         cout<<"Number of students that should not sit together: ";
         cin>>num;
-        outputStream<<num<<endl;
+        outNotTgt<<num<<endl;
         for(int i=1;i<=num;i++) {
             cout<<i<<": ";
             cin>>newname;
             namesNotTgt.push_back(newname);
-            outputStream<<newname<<endl;
+            outNotTgt<<newname<<endl;
         }
-        outputStream.close();
+        outNotTgt.close();
         cout<<"End. The list of students is in \"StudentNotTogetherList.txt\".\n";
     }
     else if(opt==2) {
@@ -132,8 +139,9 @@ int main() {
             namesNotTgt.push_back(newname);
         }
         inNotTgt.close();
-
         cout<<endl;
+
+        START:
         while(filled<numStudent) {
             randm=rng()%numStudent;
             if(!book[names[randm]]) {
@@ -149,11 +157,12 @@ int main() {
                 if(mp[i][j]) {
                     outSeating<<seats[tempnum]<<",";
                     printf("%10s",seats[tempnum].c_str());
+                    pos[seats[tempnum]]=make_pair(i,j);
                     tempnum++;
                 }
                 else {
                     outSeating<<",";
-                    printf("%8s","");
+                    printf("%10s","");
                 }
             }
             outSeating<<endl;
@@ -161,7 +170,11 @@ int main() {
         }
         outSeating.close();
 
-
+        for(int i=0;i<numNotTgt;i++) 
+            for(int j=i+1;j<numNotTgt;j++)
+                if(isAdj(namesNotTgt[i],namesNotTgt[j])) {
+                    goto START;
+                }
     }
     else if(opt==3) {
         cout<<"Are you sure to clear all the settings? This process is irrecoverable. Press 1 to confirm and 2 to cancel.\n";
@@ -169,6 +182,11 @@ int main() {
         if(opt==1) {
             remove("StudentNameList.txt");
             remove("LenDepConfigure.txt");
+            remove("StudentNotTogetherList.txt");
+            ofstream outConfigure("LenDepConfigure.txt");outConfigure.close();
+            ofstream outStuName("StudentNameList.txt"); outStuName.close();
+            ofstream outNotTgt("StudentNotTogetherList.txt"); outNotTgt.close();
+            ofstream outSeating("seating.csv"); outSeating.close();
             cout<<"Settings cleared.\n";
         }
         else if(opt==2) {
@@ -177,7 +195,6 @@ int main() {
         else OptErr();
     }
     else OptErr();
-
     cout<<"This is the end of the program. If you want to use other functions, please restart the program. Thank you for using.\n";
     return 0;
 }
